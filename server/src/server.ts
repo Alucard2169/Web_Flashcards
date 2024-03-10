@@ -1,33 +1,17 @@
 import cors from "cors";
-import express, { Request, Response } from "express";
+import express from "express";
 import path from "path";
+import { router } from '../router/router';
 const app = express();
 
-type addCardProps = {
-  tech: string;
-  questionList: { question: string; answer: string };
-  resources: string[];
-}
+
 
 // Enable CORS
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.resolve(__dirname, "../build")));
+app.use("/api", router)
 
-// Define your routes
-app.get("/", (req, res) => {
-  res.send("Hello, TypeScript!");
-});
-
-app.post("/api/addCard", (req: Request, res: Response) => {
-  try {
-    const { tech, questionList, resources } : addCardProps = req.body;
-    res.json({ tech, questionList, resources });
-  } catch (error) {
-    console.error("Error processing request:", error);
-    res.status(500).send("Internal Server Error");
-  }
-});
 
 
 

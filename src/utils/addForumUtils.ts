@@ -27,7 +27,7 @@ const formatQuestions = (
 
 // format resources into  [resource1, resource2] string array
 const formatResources = (e: FormEvent<HTMLFormElement>): string[] => {
-    return (e.target as HTMLFormElement)["resources"].value.split("\n");
+    return (e.target as HTMLFormElement)["resources"].value.split("\n" || ",");
 };
 
 
