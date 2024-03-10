@@ -9,23 +9,7 @@ const Card = () => {
             <p className="mb-2 text-MAIN font-light text-sm">Total Cards 100</p>
             <div className="mt-6 w-full bg-white h-2 rounded-full"></div>
           </article>
-          {/* <aside className="mt-2">
-            <h2 className="text-MAIN font-semibold">Resources</h2>
-            <ul>
-              <li>
-                <a
-                  href="https://developer.mozilla.org/en-US/docs/Web/javascript"
-                                aria-label="resource link"
-                                className="text-blue-500 text-sm hover:text-red-500"
-                >
-                  MDN Docs
-                </a>
-              </li>
-              <li>
-                <a href="https://javascript.info/" aria-label="resource link">Javascript.info</a>
-              </li>
-            </ul>
-          </aside> */}
+         
         </section>
       </Link>
     );
