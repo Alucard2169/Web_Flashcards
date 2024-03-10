@@ -3,6 +3,12 @@ import express, { Request, Response } from "express";
 import path from "path";
 const app = express();
 
+type addCardProps = {
+  tech: string;
+  questionList: { question: string; answer: string };
+  resources: string[];
+}
+
 // Enable CORS
 app.use(cors());
 app.use(express.json());
@@ -13,10 +19,10 @@ app.get("/", (req, res) => {
   res.send("Hello, TypeScript!");
 });
 
-app.post("/api/addQuestion", (req: Request, res: Response) => {
+app.post("/api/addCard", (req: Request, res: Response) => {
   try {
-    const { tech, questionList, resources } = req.body;
-    res.json({tech,questionList,resources})    
+    const { tech, questionList, resources } : addCardProps = req.body;
+    res.json({ tech, questionList, resources });
   } catch (error) {
     console.error("Error processing request:", error);
     res.status(500).send("Internal Server Error");

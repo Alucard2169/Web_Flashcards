@@ -1,5 +1,6 @@
 import { FormEvent, ReactNode, useState } from "react";
 import Qcontainer from "./ui/QContainer";
+import { handleSubmit } from "./utils/addForumUtils";
 
 
 
@@ -17,62 +18,19 @@ const AddForum = () => {
     setIdCounter(newId);
   };
   
-const formatQuestions = (
-  e: FormEvent<HTMLFormElement>
-): { question: string; answer: string }[] => {
-  const formattedQuestions: { question: string; answer: string }[] = [];
-
-  questions.forEach((questionElement, index) => {
-    const questionInput = (e.target as HTMLFormElement)[`question${index + 1}`];
-    const answerInput = (e.target as HTMLFormElement)[`answer${index + 1}`];
-    if (questionInput && answerInput) {
-      formattedQuestions.push({
-        question: questionInput.value,
-        answer: answerInput.value,
-      });
-    }
-  });
-
-  return formattedQuestions;
-};
 
 
-  const formatResources = (e: FormEvent<HTMLFormElement>) : string[] => {
-    return (e.target as HTMLFormElement)["resources"].value.split("\n");
-  };
-
-
-const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  if (questions.length === 0) return;
-  const tech = (e.target as HTMLFormElement)["tech"].value;
-  const questionList = formatQuestions(e);
-  const resources = formatResources(e);
-
-  try {
-    const response = await fetch("/api/addQuestion", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({tech,questionList,resources})
-    });
-
-    const data = await response.json();
-    
-    console.log(data);
-  } catch (error) {
-    console.log((error as Error));
+  const handleForm = async (e: FormEvent<HTMLFormElement>) => {
+    const {data,error} = await handleSubmit(e, questions)
+    console.log(data)
   }
-};
 
-  
     return (
       <section className="p-6 font-inter">
         <h1 className="text-2xl font-black text-MAIN">Add Tech Card</h1>
         <hr className="my-4 border-gray-700" />
         <form
-          onSubmit={handleSubmit}
+          onSubmit={(e) => handleForm(e)}
           className="w-[90%] md:w-2/3 mx-auto flex flex-col gap-4 items-center"
         >
           <label htmlFor="tech" className="flex flex-col gap-2 w-full">
